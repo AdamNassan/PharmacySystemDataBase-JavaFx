@@ -5,4 +5,4 @@ Design of full Pharmacy Data Base System that enables you to make a purchase cha
 # Admin Page
 ![AdminPage](https://github.com/AdamNassan/PharmacySystemDataBase-JavaFx/assets/144609163/6fcbeda9-6a54-4f04-9f87-0286c9206e2e)
 # Customer Page
-![Uploading CustomerPage.png…]()
+![CustomerPage](https://github.com/AdamNassan/PharmacySystemDataBase-JavaFx/assets/144609163/ac2b4881-7fdb-469a-83d6-67d81806cee0)
