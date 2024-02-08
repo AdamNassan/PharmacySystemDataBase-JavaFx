@@ -1,0 +1,76 @@
+-- Medicines Table
+CREATE TABLE Medicines (
+    MedicineID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Manufacturer VARCHAR(255),
+    ExpiryDate DATE,
+    UnitPrice DECIMAL(10, 2),
+    QuantityInStock INT
+);
+
+-- Suppliers Table
+CREATE TABLE Suppliers (
+    SupplierID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    ContactPerson VARCHAR(255),
+    ContactNumber VARCHAR(20)
+);
+
+-- Customers Table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Address VARCHAR(255),
+    ContactNumber VARCHAR(20),
+    Email VARCHAR(255)
+);
+
+-- Prescriptions Table
+CREATE TABLE Prescriptions (
+    PrescriptionID INT PRIMARY KEY,
+    CustomerID INT REFERENCES Customers(CustomerID),
+    DoctorName VARCHAR(255),
+    IssueDate DATE
+);
+
+-- PrescribedMedicines Table (Many-to-Many Relationship)
+CREATE TABLE PrescribedMedicines (
+    PrescriptionID INT REFERENCES Prescriptions(PrescriptionID),
+    MedicineID INT REFERENCES Medicines(MedicineID),
+    Quantity INT,
+    PRIMARY KEY (PrescriptionID, MedicineID)
+);
+
+-- Sales Table
+CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    CustomerID INT REFERENCES Customers(CustomerID) ON DELETE CASCADE,
+    SaleDate DATE,
+    TotalAmount DECIMAL(10, 2)
+);
+
+-- SoldMedicines Table (Many-to-Many Relationship)
+CREATE TABLE SoldMedicines (
+    SaleID INT REFERENCES Sales(SaleID),
+    MedicineID INT REFERENCES Medicines(MedicineID) ON DELETE CASCADE,
+    Quantity INT,
+    UnitPrice DECIMAL(10, 2),
+    PRIMARY KEY (SaleID, MedicineID)
+);
+
+-- Inventory Table
+CREATE TABLE Inventory (
+    InventoryID INT PRIMARY KEY,
+    MedicineID INT REFERENCES Medicines(MedicineID) ON DELETE CASCADE,
+    PurchaseDate DATE,
+    PurchasePrice DECIMAL(10, 2),
+    QuantityReceived INT
+);
+
+CREATE TABLE SuppliedMedicines (
+    SupplierID INT REFERENCES Suppliers(SupplierID),
+    MedicineID INT REFERENCES Medicines(MedicineID),
+    PRIMARY KEY (SupplierID, MedicineID)
+);
+
